@@ -294,10 +294,12 @@ impl Accumulator for VarianceAccumulator {
             }
         };
 
-        if count <= 1 {
-            return Err(DataFusionError::Internal(
-                "At least two values are needed to calculate variance".to_string(),
-            ));
+        if count == 1 {
+            // wtf is that
+            // return Err(DataFusionError::Internal(
+            //     "At least two values are needed to calculate variance".to_string(),
+            // ));
+            Ok(ScalarValue::Float64(Some(0.0)))
         }
 
         if self.count == 0 {
